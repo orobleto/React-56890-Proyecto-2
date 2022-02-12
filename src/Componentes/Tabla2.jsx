@@ -1,49 +1,78 @@
 import React from "react";
 import { FancyGridReact } from 'fancygrid-react'
 
-const columnas = [
-    {
-        index: "id",
-        title: "ID",
-    },
-    {
-        index: "nombre",
-        title: "Nombre",
-    },
-    {
-        index: "edad",
-        title: "Edad",
-    },
-
-];
-const datos = [
-    {
-        id: 1,
-        nombre: "Octavio",
-        edad: 38
-    },
-    {
-        id: 2,
-        nombre: "Mariana",
-        edad: 32
-    },
-    {
-        id: 1,
-        nombre: "Pedro",
-        edad: 35
-    },
-
-];
 
 export default class Tabla2 extends React.Component {
 
     render() {
         return <FancyGridReact config={
             {
-                columns: columnas,
-                data: datos,
-                height: 400,
-                width: 500
+                title: "CRUD",
+                width: "600",
+                height: "400",
+                paging: true,
+                tbar: [
+                    {
+                        type: "button",
+                        text: "Agregar",
+                        action: "add"
+                    },
+                    {
+                        type: "button",
+                        text: "Borrar",
+                        action: "remove"
+                    },
+
+
+                ],
+                defaults: {
+                    editable: true,
+                    sortable: true,
+                    resizable: true
+                },
+                columns:
+                    [
+                        {
+                            index: "id",
+                            title: "ID",
+                            width: 50,
+                            editable: false
+
+                        },
+                        {
+                            index: "name",
+                            title: "Nombre"
+                        },
+                        {
+                            index: "email",
+                            title: "Correo",
+                            width: 250,
+                        },
+                        {
+                            type:"action",
+                            items:[{
+                                text:"Borrar",
+                                cls:"action-column-remove",
+                                action:"remove"
+                            }]
+                        }
+
+                    ],
+                data: {
+                    proxy: {
+                        type:"rest",
+                        url: "https://jsonplaceholder.typicode.com/users"
+
+                        /*
+                        api: {
+                            create: "https://jsonplaceholder.typicode.com/users",
+                            read: "https://jsonplaceholder.typicode.com/users",
+                            update: "https://jsonplaceholder.typicode.com/users",
+                            destroy: "https://jsonplaceholder.typicode.com/users"
+                        }*/
+                    }
+                }
+
             }
         } />
     }
